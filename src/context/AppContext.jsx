@@ -82,6 +82,77 @@ export function AppProvider({ children }) {
     }
   })
 
+  // 6. Real Supabase Live Sync
+  useEffect(() => {
+    if (!isSupabaseConfigured || !supabase) return
+
+    async function loadSupabaseLive() {
+      try {
+        // Fetch Live Channels
+        const { data: dbChannels } = await supabase
+          .from('channels')
+          .select('*')
+          .order('order_index', { ascending: true })
+
+        if (dbChannels && dbChannels.length > 0) {
+          setChannels(dbChannels.map(c => ({
+            id: c.id,
+            name: c.name,
+            slug: c.slug,
+            icon: c.icon || 'MessageSquare',
+            description: c.description || '',
+            count: 0
+          })))
+        }
+
+        // Fetch Live Posts
+        const { data: dbPosts } = await supabase
+          .from('posts')
+          .select(`
+            id,
+            title,
+            content,
+            pinned,
+            likes_count,
+            comments_count,
+            created_at,
+            channel_id,
+            channels (name, slug),
+            author:author_id (id, full_name, username, avatar_url, level, role)
+          `)
+          .order('created_at', { ascending: false })
+
+        if (dbPosts && dbPosts.length > 0) {
+          setPosts(dbPosts.map(p => ({
+            id: p.id,
+            channelId: p.channel_id,
+            channelName: p.channels?.name || 'General',
+            author: {
+              id: p.author?.id || 'anon',
+              name: p.author?.full_name || 'Member',
+              username: p.author?.username || 'member',
+              avatar: p.author?.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+              level: p.author?.level || 1,
+              role: p.author?.role || 'member'
+            },
+            title: p.title,
+            content: p.content,
+            createdAt: new Date(p.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            pinned: p.pinned || false,
+            likesCount: p.likes_count || 0,
+            commentsCount: p.comments_count || 0,
+            tags: [p.channels?.name || 'Discussion'],
+            comments: []
+          })))
+        }
+      } catch (e) {
+        console.warn('Supabase sync note:', e)
+      }
+    }
+
+    loadSupabaseLive()
+  }, [])
+
   // Sync to local storage
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user))
@@ -145,10 +216,10 @@ export function AppProvider({ children }) {
   }
 
   // Toggle Post Upvote (Like)
-  const togglePostUpvote = (postId) => {
+  const togglePostUpvote = async (postId) => {
     const isUpvoted = user.upvotedPostIds.includes(postId)
 
-    // Update post count
+    // Update post count optimistically
     setPosts(prev => prev.map(p => {
       if (p.id === postId) {
         const nextLikes = isUpvoted ? Math.max(0, p.likesCount - 1) : p.likesCount + 1
@@ -168,10 +239,23 @@ export function AppProvider({ children }) {
     if (!isUpvoted) {
       showToast('👍 Upvoted! +1 XP granted to author')
     }
+
+    // Live Supabase database persist if available
+    if (isSupabaseConfigured && supabase && !postId.startsWith('post-')) {
+      try {
+        if (isUpvoted) {
+          await supabase.from('post_likes').delete().match({ post_id: postId, user_id: user.id })
+        } else {
+          await supabase.from('post_likes').insert({ post_id: postId, user_id: user.id })
+        }
+      } catch (err) {
+        console.warn('Live like error:', err)
+      }
+    }
   }
 
   // Add a new post
-  const addPost = ({ title, content, channelSlug, tags = [] }) => {
+  const addPost = async ({ title, content, channelSlug, tags = [] }) => {
     const channel = channels.find(c => c.slug === channelSlug) || channels[1]
     const newPost = {
       id: `post-${Date.now()}`,
@@ -198,10 +282,24 @@ export function AppProvider({ children }) {
     setPosts(prev => [newPost, ...prev])
     awardXp(3, 'Created new discussion post')
     showToast('Post published to ' + channel.name)
+
+    // Write to Supabase if connected
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from('posts').insert({
+          channel_id: channel.id,
+          author_id: user.id,
+          title,
+          content
+        })
+      } catch (err) {
+        console.warn('Live post error:', err)
+      }
+    }
   }
 
   // Add comment to a post
-  const addComment = (postId, text) => {
+  const addComment = async (postId, text) => {
     if (!text.trim()) return
 
     const newComment = {
@@ -231,10 +329,23 @@ export function AppProvider({ children }) {
 
     awardXp(1, 'Contributed comment')
     showToast('Comment posted! +1 XP')
+
+    // Write to Supabase if connected
+    if (isSupabaseConfigured && supabase && !postId.startsWith('post-')) {
+      try {
+        await supabase.from('comments').insert({
+          post_id: postId,
+          author_id: user.id,
+          content: text
+        })
+      } catch (err) {
+        console.warn('Live comment error:', err)
+      }
+    }
   }
 
   // Toggle lesson completed
-  const toggleLessonComplete = (lessonId) => {
+  const toggleLessonComplete = async (lessonId) => {
     const isCompleted = user.completedLessons.includes(lessonId)
 
     setUser(prev => {
@@ -249,10 +360,23 @@ export function AppProvider({ children }) {
     } else {
       showToast('Lesson marked uncompleted')
     }
+
+    // Write to Supabase if connected
+    if (isSupabaseConfigured && supabase && !lessonId.startsWith('les-')) {
+      try {
+        if (isCompleted) {
+          await supabase.from('lesson_progress').delete().match({ lesson_id: lessonId, user_id: user.id })
+        } else {
+          await supabase.from('lesson_progress').insert({ lesson_id: lessonId, user_id: user.id })
+        }
+      } catch (err) {
+        console.warn('Live progress error:', err)
+      }
+    }
   }
 
   // Add course (Admin)
-  const addCourse = (newCourseData) => {
+  const addCourse = async (newCourseData) => {
     const newCourse = {
       id: `crs-${Date.now()}`,
       ...newCourseData,
@@ -261,10 +385,25 @@ export function AppProvider({ children }) {
     }
     setCourses(prev => [...prev, newCourse])
     showToast('New course added to Classroom')
+
+    // Live Supabase insert if connected
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from('courses').insert({
+          title: newCourseData.title,
+          slug: newCourseData.slug,
+          description: newCourseData.description,
+          cover_image: newCourseData.coverImage,
+          required_level: newCourseData.requiredLevel
+        })
+      } catch (err) {
+        console.warn('Live course insert error:', err)
+      }
+    }
   }
 
   // Add channel (Admin)
-  const addChannel = ({ name, description, icon = 'MessageSquare' }) => {
+  const addChannel = async ({ name, description, icon = 'MessageSquare' }) => {
     const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
     const newChannel = {
       id: `ch-${Date.now()}`,
@@ -276,6 +415,20 @@ export function AppProvider({ children }) {
     }
     setChannels(prev => [...prev, newChannel])
     showToast(`Channel #${name} created`)
+
+    // Live Supabase insert
+    if (isSupabaseConfigured && supabase) {
+      try {
+        await supabase.from('channels').insert({
+          name,
+          slug,
+          description,
+          icon
+        })
+      } catch (err) {
+        console.warn('Live channel insert error:', err)
+      }
+    }
   }
 
   const userProgress = getNextLevelProgress(user.xp)
