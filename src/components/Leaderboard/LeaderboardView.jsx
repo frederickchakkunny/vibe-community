@@ -4,11 +4,8 @@ import {
   Medal,
   Crown,
   Sparkles,
-  ArrowUpRight,
-  Shield,
   CheckCircle2,
-  Lock,
-  Flame
+  Lock
 } from 'lucide-react'
 import { useApp } from '../../context/AppContext'
 import { LEVEL_TIERS } from '../../data/mockData'
@@ -28,21 +25,21 @@ export function LeaderboardView() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
-            <Trophy className="w-7 h-7 text-amber-400" />
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
+            <Trophy className="w-7 h-7 text-amber-500" />
             <span>Community Leaderboard</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Points (XP) are earned when members upvote your posts, replies, and when you finish course lessons.
           </p>
         </div>
 
         {/* Timeframe Filter Tabs */}
-        <div className="flex items-center p-1 rounded-2xl bg-black/40 border border-white/10 text-xs self-start md:self-auto">
+        <div className="flex items-center p-1 rounded-2xl bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-white/10 text-xs self-start md:self-auto">
           <button
             onClick={() => setTimeframe('7d')}
             className={`px-3 py-1.5 rounded-xl font-medium transition-all ${
-              timeframe === '7d' ? 'bg-white/15 text-white' : 'text-slate-400 hover:text-white'
+              timeframe === '7d' ? 'bg-white dark:bg-white/15 text-slate-900 dark:text-white shadow-xs font-semibold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             Past 7 Days
@@ -50,7 +47,7 @@ export function LeaderboardView() {
           <button
             onClick={() => setTimeframe('30d')}
             className={`px-3 py-1.5 rounded-xl font-medium transition-all ${
-              timeframe === '30d' ? 'bg-white/15 text-white' : 'text-slate-400 hover:text-white'
+              timeframe === '30d' ? 'bg-white dark:bg-white/15 text-slate-900 dark:text-white shadow-xs font-semibold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             Past 30 Days
@@ -58,7 +55,7 @@ export function LeaderboardView() {
           <button
             onClick={() => setTimeframe('all')}
             className={`px-3 py-1.5 rounded-xl font-medium transition-all ${
-              timeframe === 'all' ? 'bg-white/15 text-white' : 'text-slate-400 hover:text-white'
+              timeframe === 'all' ? 'bg-white dark:bg-white/15 text-slate-900 dark:text-white shadow-xs font-semibold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             All-Time High
@@ -71,69 +68,69 @@ export function LeaderboardView() {
         
         {/* Rank 2 (Silver) */}
         {top2 && (
-          <div className="skool-card rounded-3xl p-6 flex flex-col items-center text-center relative border-white/15 order-2 md:order-1 self-end">
-            <div className="absolute -top-3 px-3 py-0.5 rounded-full bg-slate-300 text-slate-950 font-bold text-xs flex items-center gap-1 shadow-md">
-              <Medal className="w-3.5 h-3.5" />
+          <div className="skool-card rounded-3xl p-6 flex flex-col items-center text-center relative order-2 md:order-1 self-end">
+            <div className="absolute -top-3 px-3 py-0.5 rounded-full bg-slate-200 dark:bg-slate-300 text-slate-800 dark:text-slate-950 font-bold text-xs flex items-center gap-1 shadow-sm">
+              <Medal className="w-3.5 h-3.5 text-slate-600" />
               <span>#2 Silver</span>
             </div>
             <img
               src={top2.avatar}
               alt={top2.name}
-              className="w-16 h-16 rounded-2xl object-cover border-2 border-slate-300 mt-2 mb-3"
+              className="w-16 h-16 rounded-2xl object-cover border-2 border-slate-300 mt-2 mb-3 shadow-xs"
             />
-            <h3 className="font-bold text-sm text-white">{top2.name}</h3>
-            <span className="text-xs text-slate-400 font-mono">@{top2.username}</span>
+            <h3 className="font-bold text-sm text-slate-900 dark:text-white">{top2.name}</h3>
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">@{top2.username}</span>
             <div className="mt-3 flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded-md bg-white/10 text-xs font-mono text-slate-300">
+              <span className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/10 text-xs font-mono text-slate-700 dark:text-slate-300 font-bold">
                 Level {top2.level}
               </span>
-              <span className="font-mono text-sm text-amber-300 font-bold">{top2.xp} XP</span>
+              <span className="font-mono text-sm text-amber-600 dark:text-amber-300 font-bold">{top2.xp} XP</span>
             </div>
           </div>
         )}
 
         {/* Rank 1 (Gold) */}
         {top1 && (
-          <div className="rounded-3xl p-6 flex flex-col items-center text-center relative bg-gradient-to-b from-amber-500/20 via-[#0e1424] to-[#0e1424] border-2 border-amber-500/40 shadow-2xl shadow-amber-500/10 order-1 md:order-2">
-            <div className="absolute -top-3.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-lg">
+          <div className="rounded-3xl p-6 flex flex-col items-center text-center relative bg-gradient-to-b from-amber-500/15 via-white dark:via-[#0e1424] to-white dark:to-[#0e1424] border-2 border-amber-500/40 shadow-xl shadow-amber-500/10 order-1 md:order-2">
+            <div className="absolute -top-3.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-md">
               <Crown className="w-3.5 h-3.5 fill-slate-950" />
               <span>#1 Champion</span>
             </div>
             <img
               src={top1.avatar}
               alt={top1.name}
-              className="w-20 h-20 rounded-2xl object-cover border-2 border-amber-400 mt-2 mb-3 shadow-lg"
+              className="w-20 h-20 rounded-2xl object-cover border-2 border-amber-400 mt-2 mb-3 shadow-md"
             />
-            <h3 className="font-bold text-base text-white">{top1.name}</h3>
-            <span className="text-xs text-slate-400 font-mono">@{top1.username}</span>
+            <h3 className="font-bold text-base text-slate-900 dark:text-white">{top1.name}</h3>
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">@{top1.username}</span>
             <div className="mt-3 flex items-center gap-2">
-              <span className="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 text-xs font-mono border border-amber-500/30">
+              <span className="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-800 dark:text-amber-300 text-xs font-mono border border-amber-500/30 font-bold">
                 Level {top1.level}
               </span>
-              <span className="font-mono text-base text-amber-300 font-bold">{top1.xp} XP</span>
+              <span className="font-mono text-base text-amber-600 dark:text-amber-300 font-bold">{top1.xp} XP</span>
             </div>
           </div>
         )}
 
         {/* Rank 3 (Bronze) */}
         {top3 && (
-          <div className="skool-card rounded-3xl p-6 flex flex-col items-center text-center relative border-white/15 order-3 self-end">
-            <div className="absolute -top-3 px-3 py-0.5 rounded-full bg-amber-700 text-amber-100 font-bold text-xs flex items-center gap-1 shadow-md">
-              <Medal className="w-3.5 h-3.5" />
+          <div className="skool-card rounded-3xl p-6 flex flex-col items-center text-center relative order-3 self-end">
+            <div className="absolute -top-3 px-3 py-0.5 rounded-full bg-amber-100 dark:bg-amber-800 text-amber-900 dark:text-amber-100 font-bold text-xs flex items-center gap-1 shadow-sm">
+              <Medal className="w-3.5 h-3.5 text-amber-700 dark:text-amber-300" />
               <span>#3 Bronze</span>
             </div>
             <img
               src={top3.avatar}
               alt={top3.name}
-              className="w-16 h-16 rounded-2xl object-cover border-2 border-amber-700 mt-2 mb-3"
+              className="w-16 h-16 rounded-2xl object-cover border-2 border-amber-600/50 mt-2 mb-3 shadow-xs"
             />
-            <h3 className="font-bold text-sm text-white">{top3.name}</h3>
-            <span className="text-xs text-slate-400 font-mono">@{top3.username}</span>
+            <h3 className="font-bold text-sm text-slate-900 dark:text-white">{top3.name}</h3>
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">@{top3.username}</span>
             <div className="mt-3 flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded-md bg-white/10 text-xs font-mono text-slate-300">
+              <span className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/10 text-xs font-mono text-slate-700 dark:text-slate-300 font-bold">
                 Level {top3.level}
               </span>
-              <span className="font-mono text-sm text-amber-300 font-bold">{top3.xp} XP</span>
+              <span className="font-mono text-sm text-amber-600 dark:text-amber-300 font-bold">{top3.xp} XP</span>
             </div>
           </div>
         )}
@@ -141,21 +138,21 @@ export function LeaderboardView() {
       </div>
 
       {/* Your Current Level Status Card */}
-      <div className="skool-card rounded-3xl p-6 border-white/15 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div className="skool-card rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-4">
           <img
             src={user.avatar}
             alt={user.name}
-            className="w-14 h-14 rounded-2xl object-cover border border-white/20"
+            className="w-14 h-14 rounded-2xl object-cover border border-slate-200 dark:border-white/20"
           />
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="font-bold text-base text-white">{user.name} (You)</h3>
+              <h3 className="font-bold text-base text-slate-900 dark:text-white">{user.name} (You)</h3>
               <span className="px-2 py-0.5 rounded bg-gradient-to-r from-amber-500 to-rose-500 text-white font-mono text-xs font-bold">
                 Level {user.level}
               </span>
             </div>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               {userProgress.isMax
                 ? 'You have reached the pinnacle level!'
                 : `${userProgress.remaining} XP needed to reach Level ${user.level + 1} (${userProgress.nextTitle})`}
@@ -165,10 +162,10 @@ export function LeaderboardView() {
 
         <div className="w-full sm:w-64 space-y-2">
           <div className="flex justify-between text-xs font-mono">
-            <span className="text-slate-400">Level Progress</span>
-            <span className="text-amber-300 font-bold">{userProgress.percent}%</span>
+            <span className="text-slate-500 dark:text-slate-400">Level Progress</span>
+            <span className="text-amber-600 dark:text-amber-300 font-bold">{userProgress.percent}%</span>
           </div>
-          <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-amber-400 to-rose-400 rounded-full transition-all duration-500"
               style={{ width: `${userProgress.percent}%` }}
@@ -181,11 +178,11 @@ export function LeaderboardView() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-amber-400" />
+            <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-amber-500" />
               <span>Level Perks & Unlocks Roadmap</span>
             </h3>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               Climb through the ranks to unlock exclusive community privileges and hidden courses.
             </p>
           </div>
@@ -201,33 +198,33 @@ export function LeaderboardView() {
                 key={tier.level}
                 className={`rounded-2xl p-4 border transition-all ${
                   isCurrent
-                    ? 'bg-amber-500/10 border-amber-500/40 shadow-lg'
+                    ? 'bg-amber-500/10 border-amber-500/40 shadow-sm'
                     : isUnlocked
-                    ? 'bg-white/5 border-white/10'
-                    : 'bg-black/20 border-white/5 opacity-60'
+                    ? 'skool-card'
+                    : 'bg-slate-50/50 dark:bg-black/20 border-slate-200/50 dark:border-white/5 opacity-60'
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono font-bold text-xs px-2 py-0.5 rounded bg-white/10 text-white">
+                    <span className="font-mono font-bold text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-white">
                       Lvl {tier.level}
                     </span>
-                    <span className="font-bold text-sm text-white">{tier.title}</span>
+                    <span className="font-bold text-sm text-slate-900 dark:text-white">{tier.title}</span>
                   </div>
                   {isUnlocked ? (
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                   ) : (
-                    <Lock className="w-4 h-4 text-slate-500" />
+                    <Lock className="w-4 h-4 text-slate-400" />
                   )}
                 </div>
 
-                <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
                   {tier.perk}
                 </p>
 
-                <div className="mt-3 pt-2 border-t border-white/5 flex justify-between text-[11px] font-mono text-slate-400">
+                <div className="mt-3 pt-2 border-t border-slate-100 dark:border-white/5 flex justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
                   <span>Req. XP</span>
-                  <span className="text-amber-300 font-semibold">{tier.minXp} pts</span>
+                  <span className="text-amber-600 dark:text-amber-300 font-bold">{tier.minXp} pts</span>
                 </div>
               </div>
             )
@@ -236,12 +233,12 @@ export function LeaderboardView() {
       </div>
 
       {/* Ranked Members List */}
-      <div className="skool-card rounded-3xl p-6 border-white/15 space-y-4">
-        <h3 className="text-sm font-bold text-white uppercase tracking-wider text-slate-400">
+      <div className="skool-card rounded-3xl p-6 space-y-4">
+        <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
           Rankings ({leaderboard.length} Members)
         </h3>
 
-        <div className="divide-y divide-white/5">
+        <div className="divide-y divide-slate-100 dark:divide-white/5">
           {leaderboard.map((member, index) => {
             const isMe = member.id === user.id
 
@@ -249,7 +246,7 @@ export function LeaderboardView() {
               <div
                 key={member.id}
                 className={`py-3.5 px-3 flex items-center justify-between rounded-xl transition-colors ${
-                  isMe ? 'bg-white/10' : 'hover:bg-white/5'
+                  isMe ? 'bg-amber-50/60 dark:bg-white/10' : 'hover:bg-slate-50 dark:hover:bg-white/5'
                 }`}
               >
                 <div className="flex items-center gap-3.5">
@@ -259,28 +256,28 @@ export function LeaderboardView() {
                   <img
                     src={member.avatar}
                     alt={member.name}
-                    className="w-10 h-10 rounded-xl object-cover border border-white/15"
+                    className="w-10 h-10 rounded-xl object-cover border border-slate-200 dark:border-white/15"
                   />
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-sm text-white">
+                      <span className="font-semibold text-sm text-slate-900 dark:text-white">
                         {member.name} {isMe && '(You)'}
                       </span>
                       {member.role === 'admin' && (
-                        <span className="px-1.5 py-0.2 rounded bg-indigo-500/20 text-[10px] font-medium text-indigo-300">
+                        <span className="px-1.5 py-0.2 rounded bg-indigo-50 dark:bg-indigo-500/20 text-[10px] font-medium text-indigo-700 dark:text-indigo-300">
                           Admin
                         </span>
                       )}
                     </div>
-                    <span className="text-xs text-slate-400 font-mono">@{member.username}</span>
+                    <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">@{member.username}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <span className="px-2 py-0.5 rounded bg-white/5 text-xs font-mono text-slate-300 border border-white/10">
+                  <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 text-xs font-mono text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 font-bold">
                     Lvl {member.level}
                   </span>
-                  <span className="font-mono text-sm font-bold text-amber-300 w-16 text-right">
+                  <span className="font-mono text-sm font-bold text-amber-600 dark:text-amber-300 w-16 text-right">
                     {member.xp} XP
                   </span>
                 </div>

@@ -24,7 +24,10 @@ function AppContent() {
   } = useApp()
 
   return (
-    <div className="min-h-screen bg-[#080c14] text-slate-100 flex flex-col antialiased">
+    <div 
+      className="min-h-screen flex flex-col antialiased transition-colors duration-200"
+      style={{ backgroundColor: 'var(--bg-app)', color: 'var(--text-main)' }}
+    >
       {/* Top Navbar */}
       <Navbar />
 
@@ -39,7 +42,7 @@ function AppContent() {
 
       {/* Global Toast Message */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-[#121829] border border-white/20 text-white shadow-2xl animate-in slide-in-from-bottom-3 duration-200">
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-slate-900 dark:bg-[#121829] text-white border border-slate-700 dark:border-white/20 shadow-2xl animate-in slide-in-from-bottom-3 duration-200">
           <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
           <span className="text-xs font-medium">{toastMessage}</span>
         </div>
@@ -62,8 +65,8 @@ function AppContent() {
       />
 
       {/* Footer */}
-      <footer className="border-t border-white/5 py-8 mt-12 bg-black/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <footer className="border-t border-slate-200 dark:border-white/5 py-8 mt-12 bg-white/60 dark:bg-black/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
           <p>© 2026 VibeHub Community. Built with React, Vite, Supabase & Tailwind.</p>
           <div className="flex items-center gap-6">
             <span>Zero Platform Fees</span>

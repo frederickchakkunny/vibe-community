@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { Users, Search, Shield, Sparkles, MessageSquare, Award } from 'lucide-react'
+import { Users, Search, Sparkles, MessageSquare } from 'lucide-react'
 import { useApp } from '../../context/AppContext'
 
 export function MembersView() {
@@ -26,11 +26,11 @@ export function MembersView() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
-            <Users className="w-7 h-7 text-amber-400" />
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
+            <Users className="w-7 h-7 text-amber-500" />
             <span>Members Directory</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Connect with founders, vibe coders, and students in our community ({leaderboard.length} total members).
           </p>
         </div>
@@ -44,17 +44,19 @@ export function MembersView() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search members..."
-              className="w-full skool-input pl-9 pr-4 py-2 rounded-xl text-xs placeholder:text-slate-500"
+              className="w-full skool-input pl-9 pr-4 py-2 rounded-xl text-xs placeholder:text-slate-400"
             />
           </div>
 
-          <div className="flex items-center p-1 rounded-xl bg-black/40 border border-white/10 text-xs w-full sm:w-auto">
+          <div className="flex items-center p-1 rounded-xl bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-white/10 text-xs w-full sm:w-auto">
             {['all', 'admin', 'moderator', 'member'].map(role => (
               <button
                 key={role}
                 onClick={() => setRoleFilter(role)}
                 className={`px-3 py-1.5 rounded-lg capitalize font-medium transition-all ${
-                  roleFilter === role ? 'bg-white/15 text-white' : 'text-slate-400 hover:text-white'
+                  roleFilter === role 
+                    ? 'bg-white dark:bg-white/15 text-slate-900 dark:text-white shadow-xs font-semibold' 
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 {role}
@@ -72,45 +74,45 @@ export function MembersView() {
           return (
             <div
               key={member.id}
-              className="skool-card rounded-3xl p-5 flex flex-col justify-between space-y-4 hover:border-white/20 transition-all group"
+              className="skool-card rounded-3xl p-5 flex flex-col justify-between space-y-4 hover:border-slate-300 dark:hover:border-white/20 transition-all group"
             >
               <div className="flex items-start justify-between">
                 <img
                   src={member.avatar}
                   alt={member.name}
-                  className="w-14 h-14 rounded-2xl object-cover border border-white/15 group-hover:scale-105 transition-transform"
+                  className="w-14 h-14 rounded-2xl object-cover border border-slate-200 dark:border-white/15 group-hover:scale-105 transition-transform shadow-xs"
                 />
-                <span className="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 font-mono text-xs text-slate-300">
+                <span className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 font-mono text-xs text-slate-700 dark:text-slate-300 font-bold">
                   Lvl {member.level}
                 </span>
               </div>
 
               <div>
                 <div className="flex items-center gap-2">
-                  <h3 className="font-bold text-sm text-white group-hover:text-amber-300 transition-colors">
+                  <h3 className="font-bold text-sm text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-300 transition-colors">
                     {member.name}
                   </h3>
                   {member.role === 'admin' && (
-                    <span className="px-1.5 py-0.2 rounded bg-indigo-500/20 text-[10px] font-medium text-indigo-300 border border-indigo-500/30">
+                    <span className="px-1.5 py-0.2 rounded bg-indigo-50 dark:bg-indigo-500/20 text-[10px] font-medium text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30">
                       Admin
                     </span>
                   )}
                   {member.role === 'moderator' && (
-                    <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-[10px] font-medium text-emerald-300 border border-emerald-500/30">
+                    <span className="px-1.5 py-0.2 rounded bg-emerald-50 dark:bg-emerald-500/20 text-[10px] font-medium text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-500/30">
                       Mod
                     </span>
                   )}
                 </div>
-                <span className="text-xs text-slate-400 font-mono">@{member.username}</span>
-                <p className="text-xs text-slate-400 mt-2 line-clamp-2 leading-relaxed">
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">@{member.username}</span>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 line-clamp-2 leading-relaxed">
                   Building next-generation tools and learning full-stack development with Supabase.
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+              <div className="pt-3 border-t border-slate-100 dark:border-white/10 flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400">
                 <span className="flex items-center gap-1">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                  <span className="text-amber-300 font-semibold">{member.xp} XP</span>
+                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                  <span className="text-amber-600 dark:text-amber-300 font-bold">{member.xp} XP</span>
                 </span>
                 <span className="flex items-center gap-1">
                   <MessageSquare className="w-3.5 h-3.5" />

@@ -134,23 +134,23 @@ export function AuthModal({ isOpen, onClose }) {
   ]
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150">
-      <div className="w-full max-w-md bg-[#0e1424] border border-white/15 rounded-3xl shadow-2xl p-6 relative animate-in zoom-in-95 duration-150 space-y-5">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 dark:bg-black/70 backdrop-blur-sm animate-in fade-in duration-150">
+      <div className="w-full max-w-md bg-white dark:bg-[#0e1424] border border-slate-200 dark:border-white/15 rounded-3xl shadow-2xl p-6 relative animate-in zoom-in-95 duration-150 space-y-5">
         
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-white/10">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center border border-amber-500/30">
+            <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-300 flex items-center justify-center border border-amber-500/25">
               <Users className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white">Member Access & Accounts</h2>
-              <p className="text-xs text-slate-400">Sign in with Supabase Auth or test personas</p>
+              <h2 className="text-base font-bold text-slate-900 dark:text-white">Member Access & Accounts</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Sign in with Supabase Auth or test personas</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -159,11 +159,11 @@ export function AuthModal({ isOpen, onClose }) {
         {/* Real Supabase Auth Section */}
         <div className="space-y-3">
           {/* Sign In vs Sign Up Tabs */}
-          <div className="flex items-center p-1 rounded-2xl bg-black/40 border border-white/10 text-xs">
+          <div className="flex items-center p-1 rounded-2xl bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-white/10 text-xs">
             <button
               onClick={() => { setAuthMode('signin'); setErrorMessage('') }}
               className={`flex-1 py-1.5 rounded-xl font-medium flex items-center justify-center gap-1.5 transition-all ${
-                authMode === 'signin' ? 'bg-white/15 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+                authMode === 'signin' ? 'bg-white dark:bg-white/15 text-slate-900 dark:text-white shadow-sm border border-slate-200/50 dark:border-transparent' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <LogIn className="w-3.5 h-3.5" />
@@ -172,7 +172,7 @@ export function AuthModal({ isOpen, onClose }) {
             <button
               onClick={() => { setAuthMode('signup'); setErrorMessage('') }}
               className={`flex-1 py-1.5 rounded-xl font-medium flex items-center justify-center gap-1.5 transition-all ${
-                authMode === 'signup' ? 'bg-white/15 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+                authMode === 'signup' ? 'bg-white dark:bg-white/15 text-slate-900 dark:text-white shadow-sm border border-slate-200/50 dark:border-transparent' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
               <UserPlus className="w-3.5 h-3.5" />
@@ -181,7 +181,7 @@ export function AuthModal({ isOpen, onClose }) {
           </div>
 
           {errorMessage && (
-            <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center gap-2 text-rose-300 text-xs">
+            <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center gap-2 text-rose-600 dark:text-rose-300 text-xs">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{errorMessage}</span>
             </div>
@@ -190,39 +190,39 @@ export function AuthModal({ isOpen, onClose }) {
           <form onSubmit={handleSupabaseAuth} className="space-y-2.5">
             {authMode === 'signup' && (
               <div>
-                <label className="block text-[11px] font-medium text-slate-400 mb-1">Full Name</label>
+                <label className="block text-[11px] font-medium text-slate-600 dark:text-slate-400 mb-1">Full Name</label>
                 <input
                   type="text"
                   required
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="e.g. Alex Morgan"
-                  className="w-full skool-input px-3.5 py-2 rounded-xl text-xs placeholder:text-slate-500"
+                  className="w-full skool-input px-3.5 py-2 rounded-xl text-xs placeholder:text-slate-400"
                 />
               </div>
             )}
 
             <div>
-              <label className="block text-[11px] font-medium text-slate-400 mb-1">Email Address</label>
+              <label className="block text-[11px] font-medium text-slate-600 dark:text-slate-400 mb-1">Email Address</label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="student@example.com"
-                className="w-full skool-input px-3.5 py-2 rounded-xl text-xs placeholder:text-slate-500"
+                className="w-full skool-input px-3.5 py-2 rounded-xl text-xs placeholder:text-slate-400"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-medium text-slate-400 mb-1">Password</label>
+              <label className="block text-[11px] font-medium text-slate-600 dark:text-slate-400 mb-1">Password</label>
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full skool-input px-3.5 py-2 rounded-xl text-xs placeholder:text-slate-500"
+                className="w-full skool-input px-3.5 py-2 rounded-xl text-xs placeholder:text-slate-400"
               />
             </div>
 
@@ -249,8 +249,8 @@ export function AuthModal({ isOpen, onClose }) {
         </div>
 
         {/* Quick Persona Switcher for Creator Testing */}
-        <div className="pt-3 border-t border-white/10 space-y-2">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Quick Test Personas (Preview as)</span>
+        <div className="pt-3 border-t border-slate-100 dark:border-white/10 space-y-2">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Quick Test Personas (Preview as)</span>
           
           <div className="space-y-1.5">
             {personas.map((p) => {
@@ -262,29 +262,29 @@ export function AuthModal({ isOpen, onClose }) {
                   onClick={() => handleSelectPersona(p)}
                   className={`w-full flex items-center justify-between p-2.5 rounded-xl border transition-all text-left ${
                     isSelected
-                      ? 'bg-amber-500/15 border-amber-500/40 text-white shadow-sm'
-                      : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10'
+                      ? 'bg-amber-50 dark:bg-amber-500/15 border-amber-300 dark:border-amber-500/40 text-amber-900 dark:text-white shadow-sm'
+                      : 'bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10'
                   }`}
                 >
                   <div className="flex items-center gap-2.5">
                     <img
                       src={p.avatar}
                       alt={p.name}
-                      className="w-8 h-8 rounded-lg object-cover border border-white/15"
+                      className="w-8 h-8 rounded-lg object-cover border border-slate-200 dark:border-white/15"
                     />
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-bold text-white">{p.name}</span>
-                        <span className="px-1.5 py-0.2 rounded bg-white/10 text-[10px] font-mono text-amber-300">
+                        <span className="text-xs font-bold text-slate-900 dark:text-white">{p.name}</span>
+                        <span className="px-1.5 py-0.2 rounded bg-slate-200/70 dark:bg-white/10 text-[10px] font-mono text-slate-700 dark:text-amber-300">
                           Lvl {p.level}
                         </span>
                       </div>
-                      <span className="text-[10px] text-slate-400">{p.badge}</span>
+                      <span className="text-[10px] text-slate-500 dark:text-slate-400">{p.badge}</span>
                     </div>
                   </div>
 
                   {isSelected && (
-                    <Check className="w-3.5 h-3.5 text-amber-400" />
+                    <Check className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
                   )}
                 </button>
               )

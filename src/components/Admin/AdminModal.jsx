@@ -7,19 +7,16 @@ export function formatVideoEmbedUrl(url) {
   if (!url) return ''
   const trimmed = url.trim()
 
-  // YouTube watch link: youtube.com/watch?v=ID
   const ytMatch = trimmed.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i)
   if (ytMatch && ytMatch[1]) {
     return `https://www.youtube.com/embed/${ytMatch[1]}`
   }
 
-  // Loom share link: loom.com/share/ID
   const loomMatch = trimmed.match(/loom\.com\/share\/([a-zA-Z0-9]+)/i)
   if (loomMatch && loomMatch[1]) {
     return `https://www.loom.com/embed/${loomMatch[1]}`
   }
 
-  // Vimeo link: vimeo.com/ID
   const vimeoMatch = trimmed.match(/vimeo\.com\/(\d+)/i)
   if (vimeoMatch && vimeoMatch[1]) {
     return `https://player.vimeo.com/video/${vimeoMatch[1]}`
@@ -108,34 +105,34 @@ export function AdminModal({ isOpen, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150 overflow-y-auto">
-      <div className="w-full max-w-xl bg-[#0e1424] border border-white/15 rounded-3xl shadow-2xl p-6 relative animate-in zoom-in-95 duration-150 my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto">
+      <div className="w-full max-w-xl bg-white dark:bg-[#0e1424] border border-slate-200 dark:border-white/15 rounded-3xl shadow-2xl p-6 relative animate-in zoom-in-95 duration-150 my-8">
         
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-5">
+        <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-white/10 mb-5">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center border border-indigo-500/30">
+            <div className="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 flex items-center justify-center border border-indigo-200 dark:border-indigo-500/30">
               <Shield className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-white">Admin Studio</h2>
-              <p className="text-xs text-slate-400">Add new courses, video lessons, resources & channels</p>
+              <h2 className="text-base font-bold text-slate-900 dark:text-white">Admin Studio</h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Add new courses, video lessons, resources & channels</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center justify-center transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Tab Switcher */}
-        <div className="flex items-center p-1 rounded-2xl bg-black/40 border border-white/10 text-xs mb-5">
+        <div className="flex items-center p-1 rounded-2xl bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-white/10 text-xs mb-5">
           <button
             onClick={() => setActiveTab('course')}
             className={`flex-1 py-2 rounded-xl font-medium flex items-center justify-center gap-2 transition-all ${
-              activeTab === 'course' ? 'bg-white/15 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+              activeTab === 'course' ? 'bg-white dark:bg-white/15 text-slate-900 dark:text-white shadow-xs font-semibold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             <BookOpen className="w-4 h-4" />
@@ -144,7 +141,7 @@ export function AdminModal({ isOpen, onClose }) {
           <button
             onClick={() => setActiveTab('channel')}
             className={`flex-1 py-2 rounded-xl font-medium flex items-center justify-center gap-2 transition-all ${
-              activeTab === 'channel' ? 'bg-white/15 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+              activeTab === 'channel' ? 'bg-white dark:bg-white/15 text-slate-900 dark:text-white shadow-xs font-semibold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
             }`}
           >
             <MessageSquare className="w-4 h-4" />
@@ -156,10 +153,10 @@ export function AdminModal({ isOpen, onClose }) {
           <form onSubmit={handleCreateCourse} className="space-y-4">
             
             <div className="space-y-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Course Metadata</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Course Metadata</span>
               
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">Course Title</label>
+                <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1">Course Title</label>
                 <input
                   type="text"
                   required
@@ -171,7 +168,7 @@ export function AdminModal({ isOpen, onClose }) {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">Course Description</label>
+                <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1">Course Description</label>
                 <textarea
                   rows={2}
                   value={courseDesc}
@@ -183,11 +180,11 @@ export function AdminModal({ isOpen, onClose }) {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1">Required Member Level</label>
+                  <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1">Required Member Level</label>
                   <select
                     value={requiredLevel}
                     onChange={(e) => setRequiredLevel(e.target.value)}
-                    className="w-full skool-input px-3.5 py-2 rounded-xl text-xs bg-slate-900 text-white"
+                    className="w-full skool-input px-3.5 py-2 rounded-xl text-xs bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
                   >
                     {[1, 2, 3, 4, 5, 6, 7].map(lvl => (
                       <option key={lvl} value={lvl}>Level {lvl} (Gamified lock)</option>
@@ -196,7 +193,7 @@ export function AdminModal({ isOpen, onClose }) {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1">Cover Image URL</label>
+                  <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1">Cover Image URL</label>
                   <input
                     type="url"
                     value={courseCover}
@@ -209,15 +206,15 @@ export function AdminModal({ isOpen, onClose }) {
             </div>
 
             {/* Video Lesson Setup */}
-            <div className="pt-3 border-t border-white/10 space-y-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                <Video className="w-3.5 h-3.5 text-amber-400" />
+            <div className="pt-3 border-t border-slate-100 dark:border-white/10 space-y-3">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                <Video className="w-3.5 h-3.5 text-amber-500" />
                 <span>First Lesson & Video Embed</span>
               </span>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1">Lesson Title</label>
+                  <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1">Lesson Title</label>
                   <input
                     type="text"
                     value={lessonTitle}
@@ -227,7 +224,7 @@ export function AdminModal({ isOpen, onClose }) {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1">Lesson Duration</label>
+                  <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1">Lesson Duration</label>
                   <input
                     type="text"
                     value={lessonDuration}
@@ -239,7 +236,7 @@ export function AdminModal({ isOpen, onClose }) {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">
+                <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1">
                   Video URL (YouTube, Loom, Vimeo, or direct MP4)
                 </label>
                 <input
@@ -247,28 +244,28 @@ export function AdminModal({ isOpen, onClose }) {
                   value={rawVideoUrl}
                   onChange={(e) => setRawVideoUrl(e.target.value)}
                   placeholder="https://youtu.be/... or https://loom.com/share/..."
-                  className="w-full skool-input px-3.5 py-2 rounded-xl text-xs placeholder:text-slate-500"
+                  className="w-full skool-input px-3.5 py-2 rounded-xl text-xs placeholder:text-slate-400"
                 />
-                <span className="text-[10px] text-slate-500 mt-1 block">
+                <span className="text-[10px] text-slate-400 mt-1 block">
                   Auto-converts standard YouTube or Loom share links into responsive video player embeds.
                 </span>
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-400 mb-1">Lesson Notes (Markdown supported)</label>
+                <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1">Lesson Notes (Markdown supported)</label>
                 <textarea
                   rows={3}
                   value={lessonNotes}
                   onChange={(e) => setLessonNotes(e.target.value)}
                   placeholder="Key takeaways, instructions, and checklist for students..."
-                  className="w-full skool-input px-3.5 py-2 rounded-xl text-xs resize-none placeholder:text-slate-500"
+                  className="w-full skool-input px-3.5 py-2 rounded-xl text-xs resize-none placeholder:text-slate-400"
                 />
               </div>
 
               {/* Downloadable Attachment */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1">Attachment Title (PDF/Template)</label>
+                  <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1">Attachment Title (PDF/Template)</label>
                   <input
                     type="text"
                     value={resourceTitle}
@@ -278,7 +275,7 @@ export function AdminModal({ isOpen, onClose }) {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1">File/Resource Link</label>
+                  <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1">File/Resource Link</label>
                   <input
                     type="url"
                     value={resourceUrl}
@@ -291,17 +288,17 @@ export function AdminModal({ isOpen, onClose }) {
 
             </div>
 
-            <div className="pt-3 border-t border-white/10 flex justify-end gap-2">
+            <div className="pt-3 border-t border-slate-100 dark:border-white/10 flex justify-end gap-2">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white"
+                className="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-amber-500 to-rose-500 hover:from-amber-400 hover:to-rose-400 text-white shadow-lg shadow-rose-500/20"
+                className="px-5 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-amber-500 to-rose-500 hover:from-amber-400 hover:to-rose-400 text-white shadow-md shadow-rose-500/20"
               >
                 Publish Course to Classroom
               </button>
@@ -310,7 +307,7 @@ export function AdminModal({ isOpen, onClose }) {
         ) : (
           <form onSubmit={handleCreateChannel} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1">Channel Name</label>
+              <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1">Channel Name</label>
               <input
                 type="text"
                 required
@@ -322,7 +319,7 @@ export function AdminModal({ isOpen, onClose }) {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-400 mb-1">Channel Description</label>
+              <label className="block text-xs font-medium text-slate-700 dark:text-slate-400 mb-1">Channel Description</label>
               <textarea
                 rows={3}
                 value={channelDesc}
@@ -332,17 +329,17 @@ export function AdminModal({ isOpen, onClose }) {
               />
             </div>
 
-            <div className="pt-3 border-t border-white/10 flex justify-end gap-2">
+            <div className="pt-3 border-t border-slate-100 dark:border-white/10 flex justify-end gap-2">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white"
+                className="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 rounded-xl text-xs font-semibold bg-indigo-500 hover:bg-indigo-400 text-white shadow-lg shadow-indigo-500/20"
+                className="px-5 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-500/20"
               >
                 Create Channel
               </button>

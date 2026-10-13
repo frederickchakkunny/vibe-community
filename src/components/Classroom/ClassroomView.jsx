@@ -92,18 +92,18 @@ export function ClassroomView() {
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-2.5">
-                <GraduationCap className="w-7 h-7 text-amber-400" />
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2.5">
+                <GraduationCap className="w-7 h-7 text-amber-500" />
                 <span>Classroom & Courses</span>
               </h1>
-              <p className="text-xs text-slate-400 mt-1">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 Step-by-step masterclasses. Complete lessons to earn +5 XP per lesson and level up.
               </p>
             </div>
 
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs text-slate-300">
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              <span>Current Rank: <strong className="text-white">Level {user.level}</strong></span>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-slate-700 dark:text-slate-300">
+              <Sparkles className="w-4 h-4 text-amber-500" />
+              <span>Current Rank: <strong className="text-slate-900 dark:text-white">Level {user.level}</strong></span>
             </div>
           </div>
 
@@ -117,7 +117,7 @@ export function ClassroomView() {
                 <div
                   key={course.id}
                   className={`skool-card rounded-3xl overflow-hidden flex flex-col transition-all group ${
-                    isLocked ? 'opacity-70' : 'hover:border-white/25 hover:shadow-xl'
+                    isLocked ? 'opacity-70' : 'hover:border-slate-300 dark:hover:border-white/25 hover:shadow-lg'
                   }`}
                 >
                   {/* Thumbnail */}
@@ -131,12 +131,12 @@ export function ClassroomView() {
                     {/* Level Lock Badge */}
                     <div className="absolute top-3 right-3">
                       {isLocked ? (
-                        <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-black/80 backdrop-blur-md text-amber-400 text-xs font-semibold border border-amber-500/40 shadow-lg">
+                        <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-900/90 backdrop-blur-md text-amber-400 text-xs font-semibold border border-amber-500/40 shadow-lg">
                           <Lock className="w-3.5 h-3.5" />
                           <span>Unlocks at Lvl {course.requiredLevel}</span>
                         </div>
                       ) : (
-                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-black/60 backdrop-blur-md text-emerald-400 text-xs font-semibold border border-emerald-500/30">
+                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 backdrop-blur-md text-emerald-400 text-xs font-semibold border border-emerald-500/30">
                           <CheckCircle2 className="w-3.5 h-3.5" />
                           <span>Unlocked</span>
                         </div>
@@ -147,26 +147,26 @@ export function ClassroomView() {
                   {/* Course Details */}
                   <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                     <div>
-                      <h3 className="font-bold text-base text-white group-hover:text-amber-300 transition-colors line-clamp-2">
+                      <h3 className="font-bold text-base text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-300 transition-colors line-clamp-2">
                         {course.title}
                       </h3>
-                      <p className="text-xs text-slate-400 mt-2 line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2 leading-relaxed">
                         {course.description}
                       </p>
                     </div>
 
                     {/* Progress & Action */}
-                    <div className="space-y-3 pt-3 border-t border-white/10">
+                    <div className="space-y-3 pt-3 border-t border-slate-100 dark:border-white/10">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="text-slate-400 flex items-center gap-1 font-mono">
+                        <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1 font-mono">
                           <BookOpen className="w-3.5 h-3.5" />
                           <span>{completedCount} / {totalLessons} lessons</span>
                         </span>
-                        <span className="font-mono text-amber-300 font-semibold">{percent}%</span>
+                        <span className="font-mono text-amber-600 dark:text-amber-300 font-semibold">{percent}%</span>
                       </div>
 
                       {/* Progress Bar */}
-                      <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                      <div className="w-full h-1.5 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-r from-amber-400 to-rose-400 rounded-full transition-all duration-300"
                           style={{ width: `${percent}%` }}
@@ -178,8 +178,8 @@ export function ClassroomView() {
                         disabled={isLocked}
                         className={`w-full py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
                           isLocked
-                            ? 'bg-white/5 text-slate-500 cursor-not-allowed border border-white/5'
-                            : 'bg-white/10 hover:bg-white/15 text-white border border-white/10 shadow-sm'
+                            ? 'bg-slate-100 dark:bg-white/5 text-slate-400 dark:text-slate-500 cursor-not-allowed border border-slate-200 dark:border-white/5'
+                            : 'bg-slate-100 dark:bg-white/10 hover:bg-slate-200/80 dark:hover:bg-white/15 text-slate-900 dark:text-white border border-slate-200 dark:border-white/10 shadow-xs'
                         }`}
                       >
                         {isLocked ? (
@@ -189,7 +189,7 @@ export function ClassroomView() {
                           </>
                         ) : (
                           <>
-                            <PlayCircle className="w-4 h-4 text-amber-400" />
+                            <PlayCircle className="w-4 h-4 text-amber-500" />
                             <span>{completedCount > 0 ? 'Continue Course' : 'Start Course'}</span>
                           </>
                         )}
@@ -211,14 +211,14 @@ export function ClassroomView() {
           <div className="flex items-center justify-between">
             <button
               onClick={() => setActiveCourseId(null)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-white/10 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to all courses</span>
             </button>
 
-            <span className="text-xs text-slate-400 font-medium">
-              Course: <strong className="text-white">{currentCourse.title}</strong>
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+              Course: <strong className="text-slate-900 dark:text-white">{currentCourse.title}</strong>
             </span>
           </div>
 
@@ -227,12 +227,12 @@ export function ClassroomView() {
             {/* Left Column: Modules & Lessons Syllabus Tree */}
             <div className="lg:col-span-1 space-y-4">
               <div className="skool-card rounded-3xl p-5 sticky top-24">
-                <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
-                  <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-amber-400" />
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-white/10 mb-4">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <BookOpen className="w-4 h-4 text-amber-500" />
                     <span>Course Curriculum</span>
                   </h3>
-                  <span className="text-xs font-mono text-slate-400">
+                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
                     {getCourseProgress(currentCourse).completedCount} / {getCourseProgress(currentCourse).totalLessons} done
                   </span>
                 </div>
@@ -242,12 +242,12 @@ export function ClassroomView() {
                     const isExpanded = expandedModules[module.id] !== false
 
                     return (
-                      <div key={module.id} className="rounded-2xl bg-white/5 border border-white/5 overflow-hidden">
+                      <div key={module.id} className="rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/5 overflow-hidden">
                         
                         {/* Module Header */}
                         <button
                           onClick={() => toggleModule(module.id)}
-                          className="w-full flex items-center justify-between p-3.5 text-xs font-semibold text-white hover:bg-white/5 transition-colors text-left"
+                          className="w-full flex items-center justify-between p-3.5 text-xs font-semibold text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors text-left"
                         >
                           <span className="truncate">{module.title}</span>
                           {isExpanded ? (
@@ -270,19 +270,19 @@ export function ClassroomView() {
                                   onClick={() => setActiveLessonId(lesson.id)}
                                   className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs text-left transition-all ${
                                     isActive
-                                      ? 'bg-amber-500/15 text-amber-300 font-semibold border border-amber-500/30'
-                                      : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                      ? 'bg-amber-500/15 text-amber-700 dark:text-amber-300 font-semibold border border-amber-500/30'
+                                      : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5'
                                   }`}
                                 >
                                   <div className="flex items-center gap-2.5 truncate mr-2">
                                     {isCompleted ? (
-                                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                                     ) : (
-                                      <PlayCircle className="w-4 h-4 text-slate-500 shrink-0" />
+                                      <PlayCircle className="w-4 h-4 text-slate-400 shrink-0" />
                                     )}
                                     <span className="truncate">{lesson.title}</span>
                                   </div>
-                                  <span className="text-[10px] font-mono text-slate-500 shrink-0">
+                                  <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 shrink-0">
                                     {lesson.duration}
                                   </span>
                                 </button>
@@ -305,7 +305,7 @@ export function ClassroomView() {
                 <div className="space-y-6">
                   
                   {/* Video Player */}
-                  <div className="rounded-3xl overflow-hidden bg-black border border-white/15 aspect-video shadow-2xl relative">
+                  <div className="rounded-3xl overflow-hidden bg-black border border-slate-200 dark:border-white/15 aspect-video shadow-xl relative">
                     {currentLesson.videoUrl ? (
                       <iframe
                         src={currentLesson.videoUrl}
@@ -323,10 +323,10 @@ export function ClassroomView() {
 
                   {/* Lesson Action Bar */}
                   <div className="skool-card rounded-3xl p-6 space-y-4">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-white/10">
                       <div>
-                        <h2 className="text-lg font-bold text-white">{currentLesson.title}</h2>
-                        <span className="text-xs text-slate-400 flex items-center gap-1 mt-1 font-mono">
+                        <h2 className="text-lg font-bold text-slate-900 dark:text-white">{currentLesson.title}</h2>
+                        <span className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-1 font-mono">
                           <Clock className="w-3.5 h-3.5" />
                           <span>{currentLesson.duration}</span>
                         </span>
@@ -337,8 +337,8 @@ export function ClassroomView() {
                         onClick={() => toggleLessonComplete(currentLesson.id)}
                         className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                           user.completedLessons.includes(currentLesson.id)
-                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm'
-                            : 'bg-gradient-to-r from-amber-500 to-rose-500 hover:from-amber-400 hover:to-rose-400 text-white shadow-lg shadow-rose-500/20'
+                            ? 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 shadow-xs'
+                            : 'bg-gradient-to-r from-amber-500 to-rose-500 hover:from-amber-400 hover:to-rose-400 text-white shadow-md shadow-rose-500/20'
                         }`}
                       >
                         <CheckCircle2 className="w-4 h-4" />
@@ -351,14 +351,14 @@ export function ClassroomView() {
                     </div>
 
                     {/* Lesson Notes & Text Body */}
-                    <div className="text-sm text-slate-300 leading-relaxed whitespace-pre-line space-y-4">
+                    <div className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line space-y-4">
                       {currentLesson.content}
                     </div>
 
                     {/* Downloadable Resources */}
                     {currentLesson.resources && currentLesson.resources.length > 0 && (
-                      <div className="pt-4 border-t border-white/10 space-y-2">
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                      <div className="pt-4 border-t border-slate-100 dark:border-white/10 space-y-2">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                           Lesson Resources
                         </h4>
                         <div className="space-y-1.5">
@@ -366,10 +366,10 @@ export function ClassroomView() {
                             <a
                               key={idx}
                               href={res.url}
-                              className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+                              className="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-xs text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
                             >
                               <div className="flex items-center gap-2">
-                                <FileText className="w-4 h-4 text-amber-400" />
+                                <FileText className="w-4 h-4 text-amber-500" />
                                 <span>{res.title}</span>
                               </div>
                               <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
@@ -383,7 +383,7 @@ export function ClassroomView() {
 
                 </div>
               ) : (
-                <div className="skool-card rounded-3xl p-12 text-center text-slate-400 text-xs">
+                <div className="skool-card rounded-3xl p-12 text-center text-slate-500 text-xs">
                   Please select a lesson from the curriculum on the left.
                 </div>
               )}

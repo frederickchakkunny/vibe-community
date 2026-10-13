@@ -2,16 +2,52 @@
 
 :root {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", system-ui, sans-serif;
-  color-scheme: dark;
+  
+  /* LIGHT MODE (DEFAULT SKOOL LOOK) */
+  --bg-app: #f4f6f8;
+  --bg-navbar: rgba(255, 255, 255, 0.95);
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-subtle: #f1f4f8;
+  --bg-input: #ffffff;
+  --border-color: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #64748b;
+  --pill-bg: #f1f5f9;
+  --pill-border: #e2e8f0;
+  --pill-text: #334155;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.dark {
+  /* DARK MODE */
+  --bg-app: #080c14;
+  --bg-navbar: rgba(10, 14, 26, 0.92);
+  --bg-card: #0e1422;
+  --bg-card-hover: #131a2b;
+  --bg-subtle: #141a29;
+  --bg-input: rgba(0, 0, 0, 0.4);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.18);
+  --text-main: #f8fafc;
+  --text-muted: #cbd5e1;
+  --text-dim: #94a3b8;
+  --pill-bg: rgba(255, 255, 255, 0.06);
+  --pill-border: rgba(255, 255, 255, 0.1);
+  --pill-text: #cbd5e1;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
 }
 
 body {
   margin: 0;
-  background-color: #080c14;
-  color: #f1f5f9;
+  background-color: var(--bg-app);
+  color: var(--text-main);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Custom Scrollbars */
@@ -25,12 +61,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(100, 116, 139, 0.25);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(100, 116, 139, 0.45);
 }
 
 /* Numeric Digits */
@@ -39,25 +75,33 @@ body {
   font-feature-settings: "tnum" 1;
 }
 
-/* Glass & Card styles */
+/* Skool Theme Utilities */
 .skool-card {
-  background-color: #0e1422;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+  transition: all 0.2s ease;
 }
 
 .skool-card:hover {
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: var(--border-hover);
 }
 
 .skool-input {
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: white;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
   transition: all 0.2s ease;
 }
 
 .skool-input:focus {
   outline: none;
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+}
+
+.skool-pill {
+  background-color: var(--pill-bg);
+  border: 1px solid var(--pill-border);
+  color: var(--pill-text);
 }

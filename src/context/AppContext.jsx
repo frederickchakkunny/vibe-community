@@ -32,6 +32,31 @@ export function AppProvider({ children }) {
   const [activeCourseId, setActiveCourseId] = useState(null)
   const [activeLessonId, setActiveLessonId] = useState(null)
 
+  // Theme state: 'light' by default
+  const [theme, setTheme] = useState(() => {
+    try {
+      const saved = localStorage.getItem('vibe_community_theme')
+      return saved ? saved : 'light'
+    } catch {
+      return 'light'
+    }
+  })
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('vibe_community_theme', theme)
+    } catch {}
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [theme])
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'))
+  }
+
   // 1. User state with localStorage fallback
   const [user, setUser] = useState(() => {
     try {
@@ -468,7 +493,9 @@ export function AppProvider({ children }) {
         setIsAdminModalOpen,
         isSupabaseModalOpen,
         setIsSupabaseModalOpen,
-        isSupabaseConfigured
+        isSupabaseConfigured,
+        theme,
+        toggleTheme
       }}
     >
       {children}
